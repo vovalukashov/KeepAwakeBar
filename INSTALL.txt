@@ -1,0 +1,63 @@
+KeepAwakeBar 1.0.0 (6) — INTERNAL TEST BUILD
+macOS 13 or later · Apple Silicon and Intel
+
+This build is locally signed (ad hoc), NOT Developer ID signed or notarized.
+It is intended for trusted colleagues testing the app, not public release.
+Managed company Macs may prohibit it; contact your IT team in that case.
+
+INSTALL
+1. Drag KeepAwakeBar to Applications. Quit an older running copy first.
+2. Eject this disk image, then open KeepAwakeBar from Applications.
+3. If macOS blocks the app because the developer cannot be verified, review
+   Apple's instructions: https://support.apple.com/102445
+   Only if you trust the sender and the file, use System Settings > Privacy
+   & Security > Open Anyway, if available. Do not disable Gatekeeper.
+   Do not ignore a warning that malware was detected or the app is damaged.
+4. Approve the macOS administrator prompt to enable Disable Sleep.
+   A standard account needs administrator credentials. No password is stored.
+   This prompt is expected once per app session, not once per toggle.
+
+USE
+The app appears ONLY in the menu bar; no Dock icon or main window.
+- Caffeinate: keep the display/system awake using the app's own process.
+- Disable Sleep: enable the system-wide sleep prohibition.
+- Quit: stop the app and its own Caffeinate process.
+
+Owl closed eyes: both modes off.
+Owl open eyes: Caffeinate enabled.
+Owl huge eyes: Disable Sleep enabled (also when both are enabled).
+While system state is unknown, the tooltip reports that state.
+
+IMPORTANT
+Quit does NOT reset Disable Sleep. Turn it off before you quit or uninstall.
+Do not put an awake Mac in a bag: it can overheat and discharge its battery.
+Caffeinate alone does not guarantee operation with the lid closed.
+If administrator authorization is cancelled, Caffeinate remains usable;
+restart the app to try administrator authorization again.
+The helper is temporary and exits with the app; no permanent daemon is installed.
+
+UNINSTALL
+Turn off Disable Sleep, choose Quit, then move KeepAwakeBar from Applications
+ to Trash. If necessary, restore sleep in Terminal:
+  sudo /usr/bin/pmset -a disablesleep 0
+
+No Apple notarization, Gatekeeper acceptance, or clean second-Mac installation
+has been verified for this internal test build.
+
+РУССКИЙ
+Перетащите KeepAwakeBar в Applications, извлеките образ и запустите приложение
+из Applications. Оно появится только в строке меню, без окна и иконки в Dock.
+
+Это тестовая сборка без Developer ID и нотарификации. Если macOS блокирует её
+как приложение неизвестного разработчика, изучите инструкцию Apple выше.
+На рабочем Mac ограничения может задавать ваша организация.
+
+При запуске подтвердите системный запрос администратора. Пароль не сохраняется;
+права действуют до выхода из приложения. Caffeinate работает и без этих прав.
+Если отменили запрос, для повторной попытки перезапустите приложение.
+
+Закрытые глаза — оба режима выключены. Открытые — Caffeinate.
+Огромные глаза — Disable Sleep, в том числе когда включены оба режима.
+
+Перед выходом или удалением выключите Disable Sleep: Quit его НЕ сбрасывает.
+Не кладите работающий Mac в сумку. Caffeinate завершается вместе с приложением.

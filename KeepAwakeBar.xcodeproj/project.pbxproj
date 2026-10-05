@@ -1,0 +1,466 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0FA0EB98D5E69E5512468685 /* CommandRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BB9AB09C1C85BCD10D77A9 /* CommandRunner.swift */; };
+		12DF1DCCBCC68C6C07A7AE0F /* SystemSleepService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA16C6A8A3CED0E2B2FEB83 /* SystemSleepService.swift */; };
+		23B32EA76FD6ED1BF110650B /* KeepAwakeBarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C64FDC3170CE07EF7C902D9 /* KeepAwakeBarApp.swift */; };
+		2C19CF2F77A13B828A8EF370 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 775904B279CF975543D80689 /* main.c */; };
+		5959EDB190855137F6D691D9 /* OwlState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B354787AED5E1C41F5E9E4 /* OwlState.swift */; };
+		8D645D90619BCED191E29EB3 /* CaffeinateOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38F13E0E6E5E337AFA898F2 /* CaffeinateOptions.swift */; };
+		A34C8196BA89E73E15B20F74 /* CaffeinateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA8E2F85B0FF5BB9B93860 /* CaffeinateController.swift */; };
+		C74D24B1E78753853BFED858 /* SessionSleepAuthorizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2D8CDC66F07BBAB0017309 /* SessionSleepAuthorizer.swift */; };
+		D208760136D3AF62FD740795 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 996A0B83E216943D97D0B3C4 /* Assets.xcassets */; };
+		F2B2CEE249D1902AFAD947B5 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70371292B8488962B8D35BB1 /* AppModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FFFA35DE3C6D4C4121251184 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B15AC7186BDFD55BBA34EE49 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E7D8E5A3A2E556F1CB87E511;
+			remoteInfo = KeepAwakeBarHelper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1A2D8CDC66F07BBAB0017309 /* SessionSleepAuthorizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSleepAuthorizer.swift; sourceTree = "<group>"; };
+		30EA8E2F85B0FF5BB9B93860 /* CaffeinateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaffeinateController.swift; sourceTree = "<group>"; };
+		5C64FDC3170CE07EF7C902D9 /* KeepAwakeBarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepAwakeBarApp.swift; sourceTree = "<group>"; };
+		70371292B8488962B8D35BB1 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		775904B279CF975543D80689 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		90BB9AB09C1C85BCD10D77A9 /* CommandRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandRunner.swift; sourceTree = "<group>"; };
+		996A0B83E216943D97D0B3C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AEA16C6A8A3CED0E2B2FEB83 /* SystemSleepService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSleepService.swift; sourceTree = "<group>"; };
+		B38F13E0E6E5E337AFA898F2 /* CaffeinateOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaffeinateOptions.swift; sourceTree = "<group>"; };
+		C2C3EE34F20720B67F7E81F5 /* KeepAwakeBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeepAwakeBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF17C2B6B9C221048F4B7BCE /* KeepAwakeBarHelper */ = {isa = PBXFileReference; includeInIndex = 0; path = KeepAwakeBarHelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5B354787AED5E1C41F5E9E4 /* OwlState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwlState.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0EE7BE30F24EDB02AA7EC47C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C2C3EE34F20720B67F7E81F5 /* KeepAwakeBar.app */,
+				CF17C2B6B9C221048F4B7BCE /* KeepAwakeBarHelper */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		574085FE304684DD41241F6D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				30EA8E2F85B0FF5BB9B93860 /* CaffeinateController.swift */,
+				B38F13E0E6E5E337AFA898F2 /* CaffeinateOptions.swift */,
+				90BB9AB09C1C85BCD10D77A9 /* CommandRunner.swift */,
+				D5B354787AED5E1C41F5E9E4 /* OwlState.swift */,
+				1A2D8CDC66F07BBAB0017309 /* SessionSleepAuthorizer.swift */,
+				AEA16C6A8A3CED0E2B2FEB83 /* SystemSleepService.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		65642DE5C1791BC189151BC3 /* KeepAwakeBar */ = {
+			isa = PBXGroup;
+			children = (
+				70371292B8488962B8D35BB1 /* AppModel.swift */,
+				996A0B83E216943D97D0B3C4 /* Assets.xcassets */,
+				5C64FDC3170CE07EF7C902D9 /* KeepAwakeBarApp.swift */,
+				574085FE304684DD41241F6D /* Core */,
+			);
+			path = KeepAwakeBar;
+			sourceTree = "<group>";
+		};
+		76E091B8792350E00B638F59 = {
+			isa = PBXGroup;
+			children = (
+				86B1D04343997D2CF2FF266F /* Helper */,
+				65642DE5C1791BC189151BC3 /* KeepAwakeBar */,
+				0EE7BE30F24EDB02AA7EC47C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		86B1D04343997D2CF2FF266F /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				775904B279CF975543D80689 /* main.c */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		75F79EB7615F39A12A9DC356 /* KeepAwakeBar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 48FF8CA389A3ABFB88A8D2F8 /* Build configuration list for PBXNativeTarget "KeepAwakeBar" */;
+			buildPhases = (
+				DDD00FEDD6214EB25CD4D193 /* Sources */,
+				460E2B550EDCB571C014F861 /* Resources */,
+				805A2B44618C55EACBB22EDB /* Embed session helper */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6FE2F9939381A29A81B546B5 /* PBXTargetDependency */,
+			);
+			name = KeepAwakeBar;
+			packageProductDependencies = (
+			);
+			productName = KeepAwakeBar;
+			productReference = C2C3EE34F20720B67F7E81F5 /* KeepAwakeBar.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E7D8E5A3A2E556F1CB87E511 /* KeepAwakeBarHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 33C05D15448AFA45E6F8DE29 /* Build configuration list for PBXNativeTarget "KeepAwakeBarHelper" */;
+			buildPhases = (
+				F74F3D707E80ADFFBD87AF2A /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KeepAwakeBarHelper;
+			packageProductDependencies = (
+			);
+			productName = KeepAwakeBarHelper;
+			productReference = CF17C2B6B9C221048F4B7BCE /* KeepAwakeBarHelper */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B15AC7186BDFD55BBA34EE49 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					75F79EB7615F39A12A9DC356 = {
+						ProvisioningStyle = Automatic;
+					};
+					E7D8E5A3A2E556F1CB87E511 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = A1997E11593A5ABF99608BE7 /* Build configuration list for PBXProject "KeepAwakeBar" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 76E091B8792350E00B638F59;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0EE7BE30F24EDB02AA7EC47C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				75F79EB7615F39A12A9DC356 /* KeepAwakeBar */,
+				E7D8E5A3A2E556F1CB87E511 /* KeepAwakeBarHelper */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		460E2B550EDCB571C014F861 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D208760136D3AF62FD740795 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		805A2B44618C55EACBB22EDB /* Embed session helper */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/KeepAwakeBarHelper",
+			);
+			name = "Embed session helper";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Helpers/KeepAwakeBarHelper",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mkdir -p \"$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH/Helpers\"\ncp \"$BUILT_PRODUCTS_DIR/KeepAwakeBarHelper\" \"$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH/Helpers/KeepAwakeBarHelper\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DDD00FEDD6214EB25CD4D193 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2B2CEE249D1902AFAD947B5 /* AppModel.swift in Sources */,
+				A34C8196BA89E73E15B20F74 /* CaffeinateController.swift in Sources */,
+				8D645D90619BCED191E29EB3 /* CaffeinateOptions.swift in Sources */,
+				0FA0EB98D5E69E5512468685 /* CommandRunner.swift in Sources */,
+				23B32EA76FD6ED1BF110650B /* KeepAwakeBarApp.swift in Sources */,
+				5959EDB190855137F6D691D9 /* OwlState.swift in Sources */,
+				C74D24B1E78753853BFED858 /* SessionSleepAuthorizer.swift in Sources */,
+				12DF1DCCBCC68C6C07A7AE0F /* SystemSleepService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F74F3D707E80ADFFBD87AF2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C19CF2F77A13B828A8EF370 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6FE2F9939381A29A81B546B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E7D8E5A3A2E556F1CB87E511 /* KeepAwakeBarHelper */;
+			targetProxy = FFFA35DE3C6D4C4121251184 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0D4F0DFA9015B38A93A6041C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.KeepAwakeBar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		16DB5CEE20A16355BE162559 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = KeepAwakeBar/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		647D4CC6A7E4423151B6C776 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.KeepAwakeBar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		790B23AC84188B9EF0DEACA5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = KeepAwakeBar/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		7A60730B1EAC2F8AF981B47D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.KeepAwakeBar.Helper;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CCAD57B63592CA6173478F10 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.KeepAwakeBar.Helper;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		33C05D15448AFA45E6F8DE29 /* Build configuration list for PBXNativeTarget "KeepAwakeBarHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCAD57B63592CA6173478F10 /* Debug */,
+				7A60730B1EAC2F8AF981B47D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		48FF8CA389A3ABFB88A8D2F8 /* Build configuration list for PBXNativeTarget "KeepAwakeBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				16DB5CEE20A16355BE162559 /* Debug */,
+				790B23AC84188B9EF0DEACA5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A1997E11593A5ABF99608BE7 /* Build configuration list for PBXProject "KeepAwakeBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				647D4CC6A7E4423151B6C776 /* Debug */,
+				0D4F0DFA9015B38A93A6041C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B15AC7186BDFD55BBA34EE49 /* Project object */;
+}
