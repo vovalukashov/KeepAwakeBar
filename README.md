@@ -2,23 +2,101 @@
 
 <img src="Design/OwlAppIcon.png" width="128" alt="KeepAwakeBar owl icon">
 
-[Скачать приложение / Download](https://github.com/vovalukashov/KeepAwakeBar/releases)
+A tiny native macOS menu bar app that keeps your Mac awake. Two independent switches, an expressive owl, and no Dock icon.
 
-**Тестовая сборка:** текущий релиз имеет локальную ad-hoc подпись, без Developer ID и нотарификации Apple. macOS может блокировать первый запуск; корпоративные политики могут запрещать установку. Подробнее: [установка](INSTALL.txt) и [проверка релиза](VERIFICATION.md).
+**[Download KeepAwakeBar](https://github.com/vovalukashov/KeepAwakeBar/releases)** · macOS 13+ · Apple Silicon and Intel
 
-Нативная macOS menu bar утилита на Swift/SwiftUI, macOS 13+. Два независимых режима, без окна и иконки в Dock (`LSUIElement = true`). Зависимостей у приложения нет.
+> **Test release:** the current build is locally signed (ad hoc), without Developer ID signing or Apple notarization. macOS may block the first launch, and managed Macs may prohibit installation. See the [installation instructions](INSTALL.txt) and [verification notes](VERIFICATION.md).
 
-## Сборка в Xcode
+## How it works
 
-1. Откройте `KeepAwakeBar.xcodeproj` (не `Package.swift`: это отдельный пакет тестов).
-2. Выберите схему **KeepAwakeBar**, устройство **My Mac**.
-3. В Signing & Capabilities оставьте **Sign to Run Locally** либо выберите свою Development Team. При необходимости задайте собственный Bundle Identifier.
-4. Нажмите **⌘R**. В menu bar появится монохромная сова с глазами-кнопками питания. Оба режима выключены — глаза закрыты; Caffeinate включён — глаза открыты; Disable Sleep включён — глаза огромные (приоритет над Caffeinate). Пока системное состояние неизвестно, сова с открытыми глазами; подсказка сообщает о проверке состояния. Оригинал SVG сохранён в `Design/OriginalIcon.svg`; для menu bar используется растровая template-версия совы с прозрачностью в масштабах 1×/2×/3×, а для Finder — объёмная сова с янтарными глазами, исходник `Design/OwlAppIcon.png`.
-5. Для установки: Product → Show Build Folder in Finder → Products → Debug/Release; скопируйте `KeepAwakeBar.app` в Applications.
+The menu contains just **Caffeinate**, **Disable Sleep**, and **Quit**. A checkmark means that mode is enabled.
 
-Готовый `.xcodeproj` включён: XcodeGen для сборки не нужен. `project.yml` — исходное описание проекта, если захотите его перегенерировать (`xcodegen generate`). App Sandbox намеренно отключён: этот MVP запускает административную команду через AppleScript. Hardened Runtime включён. Для распространения за пределами своего Mac нужны Developer ID signing и notarization; локальная сборка их не заменяет.
+- **Caffeinate** runs a dedicated `caffeinate` process owned by the app.
+- **Disable Sleep** toggles the system-wide `pmset disablesleep` setting.
+- **Quit** stops the app and its own Caffeinate process.
 
-Сборка из терминала (из каталога проекта):
+The owl shows the current mode:
+
+- **Closed eyes:** both modes are off.
+- **Open eyes:** Caffeinate is on.
+- **Huge eyes:** Disable Sleep is on, including when both modes are enabled.
+
+If the system sleep state is unknown, the owl uses open eyes and its tooltip explains that the state is unknown. Disable Sleep remains unavailable until authorization finishes and the system state can be read.
+
+**Quitting does not reset Disable Sleep.** Turn it off when you no longer need it, especially before uninstalling. Do not put an awake Mac in a bag: it can overheat and drain its battery. Caffeinate alone does not guarantee operation with the lid closed.
+
+To restore normal system sleep manually:
+
+```sh
+sudo /usr/bin/pmset -a disablesleep 0
+```
+
+## Install
+
+1. Download the DMG from [Releases](https://github.com/vovalukashov/KeepAwakeBar/releases).
+2. Drag **KeepAwakeBar** to **Applications**.
+3. Eject the disk image and open the app from Applications.
+4. Look for the owl in the menu bar. There is no main window or Dock icon.
+5. Approve the macOS administrator prompt to enable Disable Sleep.
+
+The current release is not notarized. See [Apple's guidance on opening apps safely](https://support.apple.com/102445) if macOS blocks it. Do not disable Gatekeeper or ignore a malware warning. On a managed Mac, contact your IT team if installation is restricted.
+
+## Administrator authorization
+
+At startup, macOS requests administrator authorization through AppleScript's `do shell script … with administrator privileges`. The app never receives or stores your password. macOS may temporarily cache the authorization.
+
+Only the small `KeepAwakeBarHelper` runs with elevated privileges; the app itself runs as your normal user. Authorization is intended to last for that app session, so changing Disable Sleep does not require a new password prompt each time. Caffeinate works independently of administrator authorization. If you cancel the prompt, restart the app to try again.
+
+The helper accepts only a connection check and two operations:
+
+```sh
+/usr/bin/pmset -a disablesleep 1
+/usr/bin/pmset -a disablesleep 0
+```
+
+It does not accept arbitrary commands or arguments. Communication uses a local Unix socket with a random name, owned by root in the sticky `/private/tmp` directory. The helper checks the client's kernel-provided UID and PID and the process start time; the client checks that the server runs as root. The helper watches the app process through `kqueue` and exits when that process exits. It also exits after 60 seconds if the app never connects.
+
+No persistent daemon, sudoers changes, or saved password are used. Errors appear in a separate dialog. Quit is unavailable while authorization or a system sleep change is in progress.
+
+The implementation lives in `Helper/main.c` and `KeepAwakeBar/Core/SessionSleepAuthorizer.swift`. The older `AppleScriptSleepAuthorizer` remains as a separate adapter but is no longer used by the UI. A future signed production version could replace the session adapter with SMAppService/XPC.
+
+The app reads `pmset -g` at startup, when the menu opens, and every 15 seconds. If the key is absent, it reads the `SleepDisabled` property from `IOPMrootDomain`. It verifies the state again after each change.
+
+## Caffeinate options
+
+By default, the app runs:
+
+```sh
+/usr/bin/caffeinate -d -i -m -s -u -w <app-PID>
+```
+
+- `-d`: prevents display sleep.
+- `-i`: prevents idle system sleep.
+- `-m`: prevents disk idle sleep; its relevance depends on the storage device.
+- `-s`: prevents system sleep **while connected to AC power**.
+- `-u`: signals user activity and may wake the display. Without `-t`, this assertion lasts **five seconds**, not the entire process lifetime.
+- `-w`: releases the assertions when the app process exits, including after a crash.
+
+Defaults are defined in `KeepAwakeBar/Core/CaffeinateOptions.swift`. The menu intentionally has only two switches; previously saved flag preferences are still respected.
+
+Caffeinate starts off on a normal launch. The optional `--resume-caffeinate` launch argument starts it with the saved flags when relaunching after an update; it does not enable automatic startup on subsequent launches.
+
+The app tracks only its own `Process`, detects unexpected termination, and never searches for or stops other Caffeinate instances. Quit sends SIGTERM only to its own child process.
+
+## Build in Xcode
+
+1. Open `KeepAwakeBar.xcodeproj`, not `Package.swift` (the latter is for Core tests).
+2. Select the **KeepAwakeBar** scheme and **My Mac** destination.
+3. In **Signing & Capabilities**, use **Sign to Run Locally** or select your Development Team. Change the bundle identifier if needed.
+4. Press **⌘R**.
+5. To install your build, choose **Product → Show Build Folder in Finder**, open **Products → Debug/Release**, and copy `KeepAwakeBar.app` to Applications.
+
+The Xcode project is included, so XcodeGen is not required. To regenerate it from `project.yml`, run `xcodegen generate`.
+
+App Sandbox is disabled because the app launches an administrator-authorized helper. Hardened Runtime is enabled. The app has no third-party runtime dependencies. Local signing does not replace Developer ID signing and notarization for distribution.
+
+From the repository directory:
 
 ```sh
 xcodebuild -project KeepAwakeBar.xcodeproj -scheme KeepAwakeBar \
@@ -26,82 +104,54 @@ xcodebuild -project KeepAwakeBar.xcodeproj -scheme KeepAwakeBar \
   CODE_SIGN_IDENTITY=- build
 ```
 
-Приложение: `/tmp/KeepAwakeBar-build/Build/Products/Release/KeepAwakeBar.app`.
+The app will be at `/tmp/KeepAwakeBar-build/Build/Products/Release/KeepAwakeBar.app`.
 
-## Меню и права администратора
-
-Меню содержит только **Caffeinate**, **Disable Sleep** и **Quit**. Галочка означает, что режим включён. Дополнительных строк allowed/disabled нет. Ошибки показываются отдельным диалогом. Disable Sleep недоступен до завершения авторизации или если фактическое состояние неизвестно.
-
-При запуске macOS один раз запрашивает права администратора через AppleScript `do shell script … with administrator privileges`. Пароль приложение не получает и не сохраняет; macOS может временно кешировать разрешение. Запускается только небольшой `KeepAwakeBarHelper`, само приложение продолжает работать с обычными правами. Caffeinate работает независимо от авторизации. Отмена запроса оставляет Caffeinate доступным; чтобы повторить авторизацию, перезапустите приложение.
-
-Помощник принимает по локальному Unix-сокету только проверку связи и две операции: `/usr/bin/pmset -a disablesleep 1` либо `0`. Произвольные команды и аргументы не принимаются. Проверяются kernel-provided UID/PID клиента и время рождения процесса; клиент проверяет root UID сервера. Сокет имеет случайное имя и принадлежит root в sticky `/private/tmp`. Помощник отслеживает выход конкретного процесса через kqueue и завершается вместе с ним. Если приложение не подключилось, помощник завершится через 60 секунд. Постоянный daemon, sudoers и сохранение пароля не используются.
-
-Реализация: `Helper/main.c` и `Core/SessionSleepAuthorizer.swift`. Старый `AppleScriptSleepAuthorizer` сохранён как отдельный адаптер, но UI его больше не использует. Для будущего подписанного production-приложения этот адаптер можно заменить на SMAppService/XPC; локальная сборка не устанавливает постоянный privileged helper.
-
-При запуске, открытии меню и каждые 15 секунд читается `pmset -g`. Если ключ отсутствует, читается фактическое свойство `SleepDisabled` у `IOPMrootDomain`. После изменения выполняется повторная проверка.
-
-**Quit не сбрасывает Disable Sleep.** Это глобальная настройка. Отключите её, когда она не нужна; не убирайте работающий Mac в сумку. Восстановление вручную:
-
-```sh
-sudo /usr/bin/pmset -a disablesleep 0
-```
-
-## Caffeinate
-
-По умолчанию приложение запускает отдельный `/usr/bin/caffeinate -d -i -m -s -u -w <PID приложения>`.
-
-- `-d`: не усыплять дисплей.
-- `-i`: не усыплять систему из-за бездействия.
-- `-m`: не усыплять диск из-за бездействия; актуальность зависит от накопителя.
-- `-s`: предотвращать системный сон **при питании от сети**.
-- `-u`: заявить активность пользователя, при необходимости включить дисплей. Без `-t` это утверждение действует **5 секунд**, а не всё время работы процесса.
-- `-w`: завершить Caffeinate после завершения процесса приложения, в том числе аварийного.
-
-Флаги задаются в `Core/CaffeinateOptions.swift`; меню намеренно содержит только два переключателя. Сохранённые ранее настройки используются при запуске.
-
-Caffeinate не заменяет системный `disablesleep` и не обещает работу с закрытой крышкой. При обычном старте приложения он выключен. Для обновления уже запущенной копии есть одноразовый аргумент `--resume-caffeinate`: он запускает собственный Caffeinate с сохранёнными флагами. Это не настройка автозапуска и не влияет на следующие обычные запуски. Приложение отслеживает только свой объект `Process`, показывает PID, замечает неожиданное завершение. Чужие процессы не ищет и не останавливает. Quit посылает SIGTERM только своему дочернему процессу; `-w` дополнительно ограничивает срок его жизни.
-
-Во время системной авторизации Quit недоступен: иначе ещё открытый запрос мог бы изменить настройку уже после выхода приложения.
-
-## Структура
+## Project structure
 
 ```text
-KeepAwakeBar.xcodeproj/          Готовый Xcode-проект и общая схема
+KeepAwakeBar.xcodeproj/          Xcode project and shared scheme
 KeepAwakeBar/
-  KeepAwakeBarApp.swift          MenuBarExtra, меню, завершение приложения
-  AppModel.swift                 Состояние UI, обновление, UserDefaults
-  Info.plist                    LSUIElement и метаданные
+  KeepAwakeBarApp.swift          MenuBarExtra, menu, app termination
+  AppModel.swift                UI state, refresh, saved preferences
+  Info.plist                    LSUIElement and app metadata
+  Assets.xcassets/              App icon and three owl states
   Core/
-    CommandRunner.swift         Асинхронный запуск системных команд
-    SystemSleepService.swift    Чтение состояния и адаптер авторизации
-    CaffeinateController.swift  Собственный процесс и его жизненный цикл
-    CaffeinateOptions.swift     Типизированные флаги
-Tests/KeepAwakeCoreTests/       Проверки логики и процессов
-Package.swift                  Swift Package только для тестирования Core
-project.yml                    Необязательный исходник XcodeGen
+    CommandRunner.swift         Asynchronous system command execution
+    SystemSleepService.swift    State reading and authorization interface
+    SessionSleepAuthorizer.swift  Session helper connection and authorization
+    CaffeinateController.swift  App-owned process lifecycle
+    CaffeinateOptions.swift     Typed command flags
+    OwlState.swift              Icon state and mode priority
+Helper/main.c                   Temporary privileged helper
+Tests/KeepAwakeCoreTests/        Core logic and process tests
+Design/                         Icon source assets
+Package.swift                   Swift package for Core tests
+project.yml                     Optional XcodeGen project definition
 ```
 
-## Проверка
+The menu bar icons use transparent template images at 1×, 2×, and 3× scales. The Finder icon is the dimensional owl in `Design/OwlAppIcon.png`. Earlier SVG designs are preserved in `Design/`.
+
+## Testing
 
 ```sh
 swift test --package-path . --scratch-path /tmp/KeepAwakeBar-tests
 ```
 
-Тесты проверяют разбор `pmset`, неопределённое состояние, фиксированные команды авторизации, флаги, обработку кодов возврата, реальное чтение состояния, запуск/остановку собственного Caffeinate и сохранность отдельного процесса. Для короткой проверки процессов используется только `-i`; системные настройки тесты не меняют.
+Tests cover `pmset` parsing, unknown states, fixed authorization commands, flags, exit codes, actual state reading, app-owned Caffeinate startup and shutdown, preservation of an independent process, and all owl mode combinations. Process tests use only `-i` briefly and do not change global power settings.
 
-Ручная проверка административного сценария:
+Manual checks for the privileged flow:
 
-1. При старте подтвердите системный запрос администратора. Затем несколько раз переключите Disable Sleep: новых запросов быть не должно.
-2. Сверьте состояние с `pmset -g`; если ключ отсутствует — `ioreg -r -d 1 -c IOPMrootDomain` и его `SleepDisabled`.
-3. После переключения Disable Sleep проверьте `pmset -g` и верните исходное состояние.
-4. Включите Caffeinate, проверьте PID и `pmset -g assertions`. Отключите: завершится именно этот процесс.
-5. Проверьте оба режима одновременно и выход из приложения. Системный флаг сохраняется, собственный Caffeinate завершается.
+1. Approve administrator authorization at startup. Toggle Disable Sleep repeatedly; no additional authorization prompts should appear during that session.
+2. Compare the state with `pmset -g`. If the key is absent, inspect `SleepDisabled` in `ioreg -r -d 1 -c IOPMrootDomain`.
+3. After toggling Disable Sleep, verify the result and restore the original state.
+4. Enable Caffeinate and inspect its process and `pmset -g assertions`. Disable it and verify that only its own process exits.
+5. Test both modes together and quit the app. The system setting persists; the app-owned Caffeinate process and session helper should exit.
 
-Интерактивный ввод пароля и физическое закрытие крышки требуют проверки владельцем Mac. Автоматические тесты не подтверждают эти сценарии.
+Automated tests do not verify interactive administrator approval or physical lid-close behavior. See [VERIFICATION.md](VERIFICATION.md) for what has and has not been checked.
 
-## Источники
+## References
 
-- [Apple: MenuBarExtra и LSUIElement](https://developer.apple.com/documentation/swiftui/menubarextra)
+- [Apple: MenuBarExtra and LSUIElement](https://developer.apple.com/documentation/swiftui/menubarextra)
 - [Apple: Calling Command-Line Tools](https://developer.apple.com/library/archive/documentation/LanguagesUtilities/Conceptual/MacAutomationScriptingGuide/CallCommandLineUtilities.html)
 - [Apple: AppleScript Commands Reference](https://developer.apple.com/library/archive/documentation/AppleScript/Conceptual/AppleScriptLangGuide/reference/ASLR_cmds.html)
-- Локальные `man caffeinate`, `man pmset` и IOKit headers установленного SDK.
+- Local `man caffeinate`, `man pmset`, and the installed SDK's IOKit headers.
