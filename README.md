@@ -6,7 +6,7 @@ A tiny native macOS menu bar app that keeps your Mac awake. Two independent swit
 
 **[Download KeepAwakeBar](https://github.com/vovalukashov/KeepAwakeBar/releases)** · macOS 13+ · Apple Silicon and Intel
 
-> **Test release:** the current build is locally signed (ad hoc), without Developer ID signing or Apple notarization. macOS may block the first launch, and managed Macs may prohibit installation. See the [installation instructions](INSTALL.txt) and [verification notes](VERIFICATION.md).
+> **Signed release:** the current download is signed with Developer ID and notarized by Apple. Gatekeeper acceptance and the attached notarization ticket have been verified. See the [installation instructions](INSTALL.txt) and [verification notes](VERIFICATION.md).
 
 ## How it works
 
@@ -40,7 +40,7 @@ sudo /usr/bin/pmset -a disablesleep 0
 4. Look for the owl in the menu bar. There is no main window or Dock icon.
 5. Approve the macOS administrator prompt to enable Disable Sleep.
 
-The current release is not notarized. See [Apple's guidance on opening apps safely](https://support.apple.com/102445) if macOS blocks it. Do not disable Gatekeeper or ignore a malware warning. On a managed Mac, contact your IT team if installation is restricted.
+Download the signed release dated October 7, 2026 or later; older releases were ad-hoc signed. macOS may show its normal first-launch confirmation for an app downloaded from the Internet. On a managed Mac, contact your IT team if installation is restricted.
 
 ## Administrator authorization
 
@@ -59,7 +59,7 @@ It does not accept arbitrary commands or arguments. Communication uses a local U
 
 No persistent daemon, sudoers changes, or saved password are used. Errors appear in a separate dialog. Quit is unavailable while authorization or a system sleep change is in progress.
 
-The implementation lives in `Helper/main.c` and `KeepAwakeBar/Core/SessionSleepAuthorizer.swift`. The older `AppleScriptSleepAuthorizer` remains as a separate adapter but is no longer used by the UI. A future signed production version could replace the session adapter with SMAppService/XPC.
+The implementation lives in `Helper/main.c` and `KeepAwakeBar/Core/SessionSleepAuthorizer.swift`. The older `AppleScriptSleepAuthorizer` remains as a separate adapter but is no longer used by the UI. A future version could replace the session adapter with SMAppService/XPC.
 
 The app reads `pmset -g` at startup, when the menu opens, and every 15 seconds. If the key is absent, it reads the `SleepDisabled` property from `IOPMrootDomain`. It verifies the state again after each change.
 

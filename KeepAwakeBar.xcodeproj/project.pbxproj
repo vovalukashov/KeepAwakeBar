@@ -412,6 +412,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.local.KeepAwakeBar.Helper;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -427,6 +428,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.local.KeepAwakeBar.Helper;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};

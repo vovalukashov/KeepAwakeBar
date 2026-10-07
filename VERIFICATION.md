@@ -1,15 +1,12 @@
-# Проверка сборки — 5 октября 2026
+# Verification — October 7, 2026
 
-- Xcode 27.0 (27A266a), Release: BUILD SUCCEEDED.
-- Собран universal Mach-O: arm64 + x86_64; deployment target macOS 13.0.
-- Локальная ad-hoc подпись: `codesign --verify --deep --strict` проходит, в том числе после извлечения готового ZIP.
-- В собранном Info.plist подтверждено `LSUIElement = true`.
-- Все 8 XCTest-проверок прошли без ошибок. Среди них реальное чтение состояния питания и остановка только собственного Caffeinate при работающем независимом экземпляре.
-- Приложение запущено вне песочницы, наличие работающего процесса подтверждено.
-- Визуальное открытие menu bar через средство UI-автоматизации не подтверждено: инструмент вернул timeout.
-- Авторизация с вводом пароля, реальное переключение глобального `disablesleep`, Intel hardware и закрытие крышки не проверялись. Системную настройку при проверке не меняли.
+- Xcode Release archive succeeded; macOS 13+, universal arm64 and x86_64.
+- App and embedded helper signed with Developer ID Application: Vladimir Lukashov (5KGN4ZW626), secure timestamp, and Hardened Runtime.
+- Deep/strict code signature verification passed.
+- Uploaded to Apple using Xcode; notarization ticket successfully stapled and validated.
+- Gatekeeper assessment: accepted, source=Notarized Developer ID.
+- Ready-to-distribute ZIP extraction and the app mounted from the DMG passed signature, ticket, and Gatekeeper checks. DMG checksum verification passed.
+- The previous functional build passed all eight Core tests. This release changes archive packaging and signing, not application behavior.
+- Clean second-Mac installation, Intel hardware, interactive privileged toggles, and physical lid-close behavior have not been verified.
 
-В текущем окружении сборка внутри Documents сталкивалась с ошибкой codesign из-за файловых атрибутов. Сборка в /tmp устранила её. Для тестов в ограниченной среде использовались `--disable-sandbox` и кеш модулей внутри /tmp; это параметры запуска тестов, а не изменение системных настроек.
-
-- DMG проверен через hdiutil verify; подпись приложения внутри смонтированного образа прошла deep/strict проверку.
-- Релиз 1.0.0 (6) не имеет Developer ID и нотарификации; установка на чистом втором Mac не проверена.
+The original October 5 release was ad-hoc signed. Use the signed release for distribution.

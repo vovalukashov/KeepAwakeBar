@@ -1,18 +1,14 @@
-KeepAwakeBar 1.0.0 (6) — INTERNAL TEST BUILD
+KeepAwakeBar 1.0.0 (6) — SIGNED RELEASE, October 7, 2026
 macOS 13 or later · Apple Silicon and Intel
 
-This build is locally signed (ad hoc), NOT Developer ID signed or notarized.
-It is intended for trusted colleagues testing the app, not public release.
+This build is Developer ID signed and notarized by Apple.
+The notarization ticket is attached for offline verification.
 Managed company Macs may prohibit it; contact your IT team in that case.
 
 INSTALL
 1. Drag KeepAwakeBar to Applications. Quit an older running copy first.
 2. Eject this disk image, then open KeepAwakeBar from Applications.
-3. If macOS blocks the app because the developer cannot be verified, review
-   Apple's instructions: https://support.apple.com/102445
-   Only if you trust the sender and the file, use System Settings > Privacy
-   & Security > Open Anyway, if available. Do not disable Gatekeeper.
-   Do not ignore a warning that malware was detected or the app is damaged.
+3. Confirm the normal first-launch Internet download prompt if shown.
 4. Approve the macOS administrator prompt to enable Disable Sleep.
    A standard account needs administrator credentials. No password is stored.
    This prompt is expected once per app session, not once per toggle.
@@ -41,15 +37,14 @@ Turn off Disable Sleep, choose Quit, then move KeepAwakeBar from Applications
  to Trash. If necessary, restore sleep in Terminal:
   sudo /usr/bin/pmset -a disablesleep 0
 
-No Apple notarization, Gatekeeper acceptance, or clean second-Mac installation
-has been verified for this internal test build.
+Apple notarization, ticket validation, and Gatekeeper acceptance were verified.
+Installation on a clean second Mac has not been verified.
 
 РУССКИЙ
 Перетащите KeepAwakeBar в Applications, извлеките образ и запустите приложение
 из Applications. Оно появится только в строке меню, без окна и иконки в Dock.
 
-Это тестовая сборка без Developer ID и нотарификации. Если macOS блокирует её
-как приложение неизвестного разработчика, изучите инструкцию Apple выше.
+Сборка подписана Developer ID и прошла нотариализацию Apple.
 На рабочем Mac ограничения может задавать ваша организация.
 
 При запуске подтвердите системный запрос администратора. Пароль не сохраняется;
